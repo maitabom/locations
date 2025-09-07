@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:locations/pages/place_form.dart';
 import 'package:locations/pages/places_list.dart';
+import 'package:locations/providers/great_places.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,17 +14,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Meus Lugares',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.indigo,
-          primary: Colors.indigo,
-          secondary: Colors.amber,
+    return ChangeNotifierProvider(
+      create: (context) => GreatPlaces(),
+      child: MaterialApp(
+        title: 'Meus Lugares',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.indigo,
+            primary: Colors.indigo,
+            secondary: Colors.amber,
+          ),
         ),
+        home: const PlacesListPage(),
+        routes: {'/place-form': (context) => PlaceFormPage()},
       ),
-      home: const PlacesListPage(),
-      routes: {'/place-form': (context) => PlaceFormPage()},
     );
   }
 }
