@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:locations/providers/great_places.dart';
+import 'package:provider/provider.dart';
 
 class PlacesListPage extends StatelessWidget {
   const PlacesListPage({super.key});
@@ -17,7 +19,24 @@ class PlacesListPage extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(child: CircularProgressIndicator()),
+      body: Consumer<GreatPlaces>(
+        builder: (context, greatPlaces, child) {
+          if (greatPlaces.count == 0) {
+            return Center(child: Text('Nenhum local cadastrado'));
+          } else {
+            return ListView.builder(
+              itemCount: greatPlaces.count,
+              itemBuilder: (context, index) => ListTile(
+                leading: CircleAvatar(
+                  backgroundImage: FileImage(greatPlaces.getItem(index).image),
+                ),
+                title: Text(greatPlaces.getItem(index).title),
+                onTap: () {},
+              ),
+            );
+          }
+        },
+      ),
     );
   }
 }
