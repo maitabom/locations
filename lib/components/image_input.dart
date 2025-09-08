@@ -60,7 +60,7 @@ class _ImageInputState extends State<ImageInput> {
           onPressed: _takePicture,
           label: Text('Tirar foto'),
           icon: Icon(Icons.camera),
-          style: ElevatedButton.styleFrom(
+          style: TextButton.styleFrom(
             foregroundColor: Colors.black,
             elevation: 0,
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
