@@ -19,23 +19,31 @@ class PlacesListPage extends StatelessWidget {
           ),
         ],
       ),
-      body: Consumer<GreatPlaces>(
-        builder: (context, greatPlaces, child) {
-          if (greatPlaces.count == 0) {
-            return Center(child: Text('Nenhum local cadastrado'));
-          } else {
-            return ListView.builder(
-              itemCount: greatPlaces.count,
-              itemBuilder: (context, index) => ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: FileImage(greatPlaces.getItem(index).image),
-                ),
-                title: Text(greatPlaces.getItem(index).title),
-                onTap: () {},
+      body: FutureBuilder(
+        future: Provider.of<GreatPlaces>(context, listen: false).loadPlaces(),
+        builder: (context, snapshot) =>
+            snapshot.connectionState == ConnectionState.waiting
+            ? Center(child: CircularProgressIndicator())
+            : Consumer<GreatPlaces>(
+                builder: (context, greatPlaces, child) {
+                  if (greatPlaces.count == 0) {
+                    return Center(child: Text('Nenhum local cadastrado'));
+                  } else {
+                    return ListView.builder(
+                      itemCount: greatPlaces.count,
+                      itemBuilder: (context, index) => ListTile(
+                        leading: CircleAvatar(
+                          backgroundImage: FileImage(
+                            greatPlaces.getItem(index).image,
+                          ),
+                        ),
+                        title: Text(greatPlaces.getItem(index).title),
+                        onTap: () {},
+                      ),
+                    );
+                  }
+                },
               ),
-            );
-          }
-        },
       ),
     );
   }
