@@ -19,4 +19,9 @@ class DatabaseService {
     final database = await DatabaseService.database();
     database.insert(table, data, conflictAlgorithm: ConflictAlgorithm.replace);
   }
+
+  static Future<List<Map<String, dynamic>>> getData(String table) async {
+    final database = await DatabaseService.database();
+    return database.query(table);
+  }
 }
