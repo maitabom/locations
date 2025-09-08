@@ -37,6 +37,7 @@ dependencies:
   path_provider: ^2.1.5
   sqflite: ^2.4.2
   location: ^8.0.1
+  google_vision_flutter: ^2.0.0+10
   flutter_dotenv: ^6.0.0
 
   # The following adds the Cupertino Icons font to your application.
